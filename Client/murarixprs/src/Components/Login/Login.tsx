@@ -12,7 +12,6 @@ const Login: React.FunctionComponent = (props) => {
 
   return (
     <>
-      <h1> Welcome to Login Page</h1>
       <LoginInput loginData={loginData} setLoginData={setLoginData} />
     </>
   );
