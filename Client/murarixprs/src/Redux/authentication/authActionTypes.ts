@@ -1,0 +1,9 @@
+export const AUTH_SIGNUP_REQUEST: string = "AUTH_SIGNUP_REQUEST";
+export const AUTH_SIGNUP_SUCCESS: string = "AUTH_SIGNUP_SUCCESS";
+export const AUTH_SIGNUP_FAILURE: string = "AUTH_SIGNUP_FAILURE";
+
+export const AUTH_LOGIN_REQUEST: string = "AUTH_LOGIN_REQUEST";
+export const AUTH_LOGIN_SUCCESS: string = "AUTH_LOGIN_SUCCESS";
+export const AUTH_LOGIN_FAILURE: string = "AUTH_LOGIN_FAILURE";
+
+export const AUTH_LOGOUT_SUCCESS: string = "AUTH_LOGOUT_SUCCESS";

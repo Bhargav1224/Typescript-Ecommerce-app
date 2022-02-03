@@ -79,7 +79,11 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
         id={styles.mainLoginComponent}
       >
         <Box id={styles.loginContBox}>
-          <Box style={{ textAlign: "center" }}>
+          <Box
+            style={{
+              textAlign: "center",
+            }}
+          >
             <img src={RoverImage} alt="RoverLogo" style={{ width: "90px" }} />
           </Box>
           <Box style={{ textAlign: "center", marginTop: "15px" }}>
