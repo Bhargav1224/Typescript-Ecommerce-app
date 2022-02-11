@@ -2,7 +2,10 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
+// const LoggerInfo = require("../helpers/logger");
+// const label = "dashBoardController";
+// const info = "info";
+// const errorMessage = "error";
 async function hashPassword(password) {
   return await bcrypt.hash(password, saltRounds);
 }
@@ -47,6 +50,7 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email })
+    // LoggerInfo(label, info).info(`Brand Api is Initiated by ${email}`);
     // .populate("role");
     if (!user) {
       return res.json({

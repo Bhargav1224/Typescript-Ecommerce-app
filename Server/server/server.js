@@ -1,10 +1,11 @@
+// require("newrelic");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const authRoutes = require("./routes/route.js");
 const cors = require("cors");
-
+// require("dotenv").config();
 require("dotenv").config({
   path: path.join(__dirname, "../.env"),
 });

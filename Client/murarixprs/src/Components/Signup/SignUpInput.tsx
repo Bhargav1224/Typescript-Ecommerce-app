@@ -1,5 +1,5 @@
 import { SignUpModel } from "../models/signup.model";
-import React, { useState } from "react";
+import React from "react";
 // import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
