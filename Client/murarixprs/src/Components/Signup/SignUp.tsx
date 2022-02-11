@@ -1,14 +1,21 @@
-import * as React from 'react';
+import * as React from "react";
+import { useState } from "react";
+import { SignUpModel } from "../models/signup.model";
+import SignUpInput from "./SignUpInput";
 
-interface ISignUpProps {
-}
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+};
+const SignUp: React.FunctionComponent = (props) => {
+  const [signUpData, setSignUpData] = useState<SignUpModel>(initialState || "");
 
-const SignUp: React.FunctionComponent<ISignUpProps> = (props) => {
   return (
-      <>
-
-      <h1>SignUp Page</h1>
-      </>
+    <>
+      <SignUpInput signUpData={signUpData} setSignUpData={setSignUpData} />
+    </>
   );
 };
 

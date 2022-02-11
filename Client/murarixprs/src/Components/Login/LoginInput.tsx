@@ -7,7 +7,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import RoverImage from "../Assets/Rover.jpg";
+import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import { authLogin } from "../../Redux/authentication/authAction";
+import { Link } from "react-router-dom";
 
 interface ILoginInputProps {
   loginData: LoginModel;
@@ -29,7 +33,9 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
   const [showPasswordValid, setShowPasswordValid] = useState(false);
   const [showEmailRequired, setShowEmailRequired] = useState(false);
   const [showPasswordRequired, setShowPasswordRequired] = useState(false);
-
+  const isAuth = useAppSelector((state) => state.auth.loginSuccess);
+  const dispatch = useAppDispatch();
+  let navigate = useNavigate();
   const emailValid = /\S+@\S+/;
   // function for login
   const handleSubmit = (): void => {
@@ -46,7 +52,11 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
 
     if (emailValid.test(email) && password.length >= 4) {
       // calling the login API from loginPage container by passing the email and password
-      // onHandleSubmit(email, password);
+      const payload: object = {
+        email,
+        password,
+      };
+      dispatch(authLogin(payload));
       setShowEmailValid(false);
       setShowPasswordValid(false);
     } else if (emailValid.test(email)) {
@@ -70,6 +80,9 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
       },
     },
   });
+  if (isAuth) {
+    navigate("/dashboard");
+  }
   return (
     <>
       <Box
@@ -87,7 +100,7 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
             <img src={RoverImage} alt="RoverLogo" style={{ width: "90px" }} />
           </Box>
           <Box style={{ textAlign: "center", marginTop: "15px" }}>
-            <Typography variant="h4" gutterBottom component="div">
+            <Typography variant="h5" gutterBottom component="div">
               Login to your account
             </Typography>
             <svg
@@ -246,7 +259,7 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
             style={{ textAlign: "center", marginTop: "45px" }}
           >
             <Typography
-              variant="h5"
+              variant="h6"
               gutterBottom
               component="div"
               style={{ textAlign: "left", paddingLeft: "20%" }}
@@ -259,6 +272,7 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
                 id="outlined-basic"
                 variant="outlined"
                 type="email"
+                name="email"
                 InputLabelProps={{ shrink: false }}
                 required
                 value={email}
@@ -295,7 +309,7 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
               </Typography>
             ) : null}
             <Typography
-              variant="h5"
+              variant="h6"
               gutterBottom
               component="div"
               style={{
@@ -311,6 +325,7 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
                 id="outlined-basic"
                 variant="outlined"
                 type="password"
+                name="password"
                 InputLabelProps={{ shrink: false }}
                 required
                 value={password}
@@ -361,6 +376,14 @@ const LoginInput: React.FunctionComponent<ILoginInputProps> = ({
                 Sign In
               </Button>
             </ThemeProvider>
+          </Box>
+          <Box sx={{ mt: "10px" }}>
+            <Typography variant="h6" sx={{ textAlign: "center" }}>
+              Need an account ?{" "}
+              <Link to="/signup" style={{ color: "#da6212" }}>
+                SignUp
+              </Link>{" "}
+            </Typography>
           </Box>
         </Box>
       </Box>

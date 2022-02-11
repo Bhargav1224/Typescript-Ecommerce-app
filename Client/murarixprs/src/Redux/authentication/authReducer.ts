@@ -1,5 +1,5 @@
 import { getLocalData, setLocalData } from "../../Utilis/localStorage";
-import type { RootState } from "../store";
+// import type { RootState } from "../store";
 import {
   AUTH_SIGNUP_REQUEST,
   AUTH_SIGNUP_SUCCESS,
@@ -17,6 +17,7 @@ interface InitState {
   signUpLoading: boolean;
   signUpData: Array<any>;
   loginSuccess: boolean;
+  token: string;
   loginFailure: boolean;
   loginLoading: boolean;
   loginData: Array<any>;
@@ -29,7 +30,8 @@ const InitialState: InitState = {
   signUpFailure: false,
   signUpLoading: false,
   signUpData: [],
-  loginSuccess: false,
+  loginSuccess: getLocalData("isAuth") || false,
+  token: getLocalData("token") || "",
   loginFailure: false,
   loginLoading: false,
   loginData: [],
@@ -37,7 +39,7 @@ const InitialState: InitState = {
   logoutSuccess: false,
 };
 
-export const authReducer = (state = InitialState,action:any) => {
+export const authReducer = (state = InitialState, action: any) => {
   switch (action.type) {
     case AUTH_SIGNUP_REQUEST:
       return {
@@ -65,10 +67,13 @@ export const authReducer = (state = InitialState,action:any) => {
         loginLoading: true,
       };
     case AUTH_LOGIN_SUCCESS:
+      setLocalData("isAuth", true);
+      setLocalData("token", action.payload.accessToken);
       return {
         ...state,
         loginLoading: false,
         loginSuccess: true,
+        token: action.payload,
         loginFailure: false,
         loginData: action.payload,
       };

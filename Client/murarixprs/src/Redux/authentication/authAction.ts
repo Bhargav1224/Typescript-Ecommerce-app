@@ -41,12 +41,12 @@ export const logoutSuccess = () => ({
   type: AUTH_LOGOUT_SUCCESS,
 });
 
-export const authSignup = (payload: any) => (dispatch: any) => {
+export const authSignUp = (payload: any) => (dispatch: any) => {
   //we are dispatching the request  action here
   const requestAction = signupLoading();
   dispatch(requestAction);
   return axios
-    .get("http://localhost:8001/auth/user/signup")
+    .post("http://localhost:8001/auth/user/signup", payload)
     .then((res) => {
       //dispatching success action here
       const successAction = signupSuccess(res.data);
@@ -65,12 +65,11 @@ export const authLogin = (payload: any) => (dispatch: any) => {
   const requestAction = loginLoading();
   dispatch(requestAction);
   return axios
-    .get("http://localhost:8001/auth/user/login")
+    .post("http://localhost:8001/auth/user/login", payload)
     .then((res) => {
       //dispatching success action here
-      const successAction = loginSuccess(res.data);
+      const successAction = loginSuccess(res?.data);
       dispatch(successAction);
-      console.log(res.data);
     })
     .catch((error) => {
       //dispatching error action here
