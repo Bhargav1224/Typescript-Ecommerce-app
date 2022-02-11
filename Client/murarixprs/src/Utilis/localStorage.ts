@@ -13,7 +13,7 @@ export const setLocalData = (key:string, data:any): void => {
  * @param {string} key
  * @returns val
  */
-export const getLocalData = (key:string): void => {
+export const getLocalData = (key:string): any => {
   try {
     let val = JSON.parse(localStorage.getItem(key) || "");
     return val;
